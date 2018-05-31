@@ -41,6 +41,21 @@ Actualmente se usa academicamente, tanto los mismos desarrolladores como academi
 
 \section{Casos de estudio}
 
+A continuaci\'on se muestran brevemente algunos casos de estudio de la herramienta.
+
+\paragraph{Ajustes finamente automatizados de Algoritmos probabil\'isticamente autoestables}
+Este caso de estudio fue desarrollado en Canada junto con Alemania, donde se estudi\'o tres diferentes t\'ecnicas para encontrar la distribuci\'on de probabilidad que logr\'a el m\'inimo tiempo promedio de recuperaci\'on para un input de un protocolo randomizado, distribuido y autoestable sin que modifique el comportamiento del algoritmo. Una de las tres t\'ecnicas consiste en usar Storm para la t\'ecnica de "sintes\'is del parametro", donde Storm computa la funci\'on racional, describiendo el tiempo promedio de recuperaci\'on y luego usa 'solvers' (solucionadores) dedicados para encontrar el parametro \'optimo de valuaci\'on. Se evaluaron las t\'ecnicas con el algoritmo de 'Herman' (Randomized token circulation) y como resultado la tecnica donde se uso Storm fue la segunda mas r\'apida.
+ 
+
+\paragraph{La Verificaci\'on de modelos asisti\'o al Dise\~no de Protocolos Ultra Confiables para Redes Inal\'ambricas de baja latencia }
+Este caso se desarroll\'o en Suecia en conjunto con Alemania para mostrar una t\'ecnica para dise\~nar protocolos para aplicaciones con seguridad cr\'itica, tradicionalmente el desarrollo de estos sistemas inal\'ambricos se baso en simulaciones para identificar arquitecturas viables, la propuesta es usar Storm como herramienta como verificacion probabilistico de modelos para evaluar diferentes variantes de sistemas en la etapa de dise\~no, lo que proveer\'a límites en la fiabilidad diseños considerados a elegir. Se comprob\'o con el protocolo de EchoRing, protocolo basado en sistemas de Tokens, dise\~nados para aplicaciones industriales de seguridad cr\'itica, donde se muestra Storm como una potencial herramienta para la evaluaci\'on de los diferentes dise\~nos de mecanismos para el manejo de un token perdido.
+
+\paragraph{Contraejemplos para recompenzas esperadas o costos esperados}
+Este caso se desarrollo en Alemania con el prop\'osito de demostrar que al usar Storm como herramienta para la computacion de contraejemplos en sistemas probabil\'isticos para "recompezas esperadas o costos esperados", se puede obtener un subsistema minimial que ya lleva el costo o la recompenza m\'as alla del l\'imite permitido.
+
+\paragraph{Verificaci\'on de Modelos limitados a programas probabil\'isticos}
+Este caso de estudio se desarroll\'o en Estados Unidos junto con Alemania para investigar la aplicaci\'on de los enfoques de la verificaci\'on estandar de modelos para verificar propiedades en programas probabilisticos. Como el modelo operacional de los programas probabilisticos estandar es un proceso potencial param\'etrico infinito de Markov, por lo que es imposible de una adaptacion directa, por lo que se propone un enfoque donde el modelo operacional es creado exitosamente y verificado paso por paso mediante una ejecuci\'on del programa. La evaluaci\'on de dicho modelo es corroborado con Storm  para la sintesis de parametros  y con benchmarks.
+
 \subsection{Modelo basado en el an\'alisis de seguridad para sistema de gu\'ia para veh\'iculos}
 
 \section{Comparaci\'on con otras herramientas}
