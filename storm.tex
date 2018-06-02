@@ -24,15 +24,23 @@
 
 \section{Resumen.}
 
-Los modelos de verificaci\'on probabil\'isticos son fundamentales para el modelado y verificaci\'on de sistemas que exhiben un funcionamiento aleatorio. El presente trabajo es un estudio detallado de la herramienta de verificaci\'on probabil\'istica Storm Checker, a trav\'es de un an\'alisis detallado de los aspectos t\'ecnicos m\'as relevantes de la misma y de la realizaci\'on de un caso de estudio elegido, identificaremos las caracter\'isticas m\'as significativas de la herramienta y la importancia de esta en el campo de la verificaci\'on de sistemas.
+Los modelos de verificaci\'on probabil\'isticos son fundamentales para el modelado y verificaci\'on de sistemas que exhiben un funcionamiento aleatorio. El presente trabajo es un estudio detallado de la herramienta de verificaci\'on probabil\'istica Storm Checker, donde a trav\'es de una exposici\'on y an\'alisis de los aspectos t\'ecnicos e implicancias m\'as relevantes de la misma y de la realizaci\'on de un caso de estudio elegido, se identifican las caracter\'isticas m\'as significativas de la herramienta y la importancia de esta en el campo de la verificaci\'on de sistemas.
 
 \section{Introducci\'on.}
 
-La verificaci\'on de modelos (o model checking) consiste en m\'etodos autom\'aticos de comprobaci\'on de un sistema formal. Dado el modelo de un sistema, en la mayor\'ia de las ocasiones derivado del hardware o del software de un sistema inform\'atico, se comprueba exhaustiva y autom\'aticamente si este modelo cumple con una especificaci\'on dada. El modelo suele estar representado como un sistema de transiciones, es decir, un grafo dirigido, que consta de un conjunto de v\'ertices y aristas, donde un conjunto de proposiciones at\'omicas se asocia a cada nodo. As\'i pues, los nodos representan los estados posibles de un sistema, las aristas posibles evoluciones del mismo, mediante ejecuciones permitidas, que alteran el estado, mientras que las proposiciones representan las propiedades b\'asicas que se satisfacen en cada punto de la ejecuci\'on. Esta representaci\'on se conoce como sistema de transici\'on etiquetado (LTS). La especificaci\'on que debe verificar el modelo contiene requisitos de seguridad tales como la ausencia de bloqueos mutuos (deadlocks) y estados cr\'iticos similares que pueden causar la falla del sistema, la misma es formalmente descrita mediante una f\'ormula, a menudo escrita en alguna variedad de l\'ogica temporal (por ejemplo LTL). Si la especificaci\'on requerida no se verifica, usualmente los programas de verificaci\'on de modelos, devuelven la traza que lleva a la falla en el sistema. En conclusi\'on, la verificaci\'on de modelos comprende las t\'ecnicas para verificar autom\'aticamente las propiedades de correcci\'on de sistemas de estados finitos.
+La verificaci\'on de modelos %(o model checking) 
+consiste en m\'etodos autom\'aticos de comprobaci\'on de un sistema formal. Dado el modelo de un sistema, en la mayor\'ia de las ocasiones derivado del hardware o del software de un sistema inform\'atico, se comprueba exhaustiva y autom\'aticamente si este modelo cumple con una especificaci\'on dada. El modelo suele estar representado como un sistema de transiciones %, es decir, un grafo dirigido, 
+que consta de un conjunto de v\'ertices y aristas, donde un conjunto de proposiciones at\'omicas se asocia a cada nodo. As\'i pues, los nodos representan los estados posibles de un sistema, las aristas posibles evoluciones del mismo, mediante ejecuciones permitidas, que alteran el estado, mientras que las proposiciones representan las propiedades b\'asicas que se satisfacen en cada punto de la ejecuci\'on. Esta representaci\'on se conoce como sistema de transici\'on etiquetado (LTS). La especificaci\'on que debe verificar el modelo contiene requisitos de seguridad tales como la ausencia de bloqueos mutuos (deadlocks) y estados cr\'iticos similares que pueden causar la falla del sistema, la misma es formalmente descrita mediante una f\'ormula, a menudo escrita en alguna variedad de l\'ogica temporal (por ejemplo LTL). Si la especificaci\'on requerida no se verifica, usualmente los programas de verificaci\'on de modelos, devuelven la traza que lleva a la falla en el sistema. En conclusi\'on, la verificaci\'on de modelos comprende las t\'ecnicas para verificar autom\'aticamente las propiedades de correcci\'on de sistemas de estados finitos.
 
-Un modelo de verificaci\'on probabil\'istico es un tipo de verificador (model checker) con ciertas particularidades, en lugar de representar al sistema mediante una m\'aquina de estados finitos, lo hace a trav\'es de un aut\'omata probabil\'istico, que puede ser definido, utilizando cadenas de Marcov. Adem\'as, las especificaciones a verificar deben ser descriptas en alg\'un tipo de l\'ogica temporal probabil\'istica (por ejemplo PCTL). Por \'ultimo, el modelo de verificaci\'on probabil\'istico no devuelve trazas de errores, sino resultados cuantitativos.
+Un modelo de verificaci\'on probabil\'istico es un tipo especial de verificador, %(model checker) con ciertas particularidades
+en lugar de representar al sistema mediante una m\'aquina de estados finitos, lo hace a trav\'es de un aut\'omata probabil\'istico, que puede ser definido, utilizando cadenas de Marcov. Adem\'as, las especificaciones a verificar deben ser descriptas en alg\'un tipo de l\'ogica temporal probabil\'istica (por ejemplo PCTL). Por \'ultimo, el modelo de verificaci\'on probabil\'istico no devuelve trazas de errores, sino resultados cuantitativos.
 
-Este tipo de verificadores se emplean principalmente para analizar sistemas aleatorios o con fen\'omenos probabil\'isticos. Algunas \'areas y ejemplos de aplicaci\'on son: 
+El presente trabajo es un estudio detallado de la herramienta de verificaci\'on probabil\'istica Storm checker. Lo que sigue del art\'iculo esta estructurado de la siguiente manera: a continuaci\'on presentaremos el contexto de creaci\'on de la herramienta, sus principales objetivos, usos y su empleo a nivel usuario. Luego describiremos los aspectos t\'ecnicos m\'as relevantes. %como el empleo de cadenas de markov discretas, etc. 
+Finalmente presentaremos los casos de estudios m\'as significativos y el caso de estudio a desarrollar, para finalmente concluir sobre la importancia de Storm en la verificaci\'on de sistemas que dependen de eventos aleatorios. 
+
+\section{Contexto de creaci\'on de la herramienta, objetivos y usuarios de la misma.} 
+
+Storm fue desarrollado en la Universidad de RWTH Aachen, Alemania en el a\~no 2012 por Joost-Pieter Katoen y un grupo de estudiantes de doctorado a su cargo. Los verificadores de modelos probabil\'isticos como Storm, se emplean principalmente para analizar sistemas aleatorios o con fen\'omenos probabil\'isticos. Algunas \'areas y ejemplos de aplicaci\'on son: 
 
 \begin{itemize}
 	\item en modelado de incertidumbre y rendimiento, por ejemplo tasas de fallas en protocolos de comunicaci\'on, tiempo de vida de los componentes de un cluster de red, tiempos de llegadas en un sistema de colas, tasas de reacci\'on bioqu\'imica;
@@ -48,11 +56,7 @@ Este tipo de verificadores se emplean principalmente para analizar sistemas alea
 
 Los requisitos son tanto cuantitativos como cualitativos, por ejemplo: en lo referente a la calidad de un servicio: \textquestiondown qu\'e tan confiable es la red Bluetooth de mi autom\'ovil?, \textquestiondown qu\'e tan eficiente es la pol\'itica de administraci\'on de energ\'ia de mi tel\'efono?; otros ejemplos son la cuantificaci\'on de confianza, o del anonimato.
 
-El presente trabajo es un estudio detallado de la herramienta de verificaci\'on probabil\'istica Storm checker. Lo que sigue del art\'iculo esta estructurado de la siguiente manera: a continuaci\'on presentaremos el contexto de creaci\'on de la herramienta, sus principales objetivos y su empleo a nivel usuario. Luego describiremos los aspectos t\'ecnicos m\'as relevantes, como el empleo de cadenas de markov discretas, etc. Finalmente presentaremos los casos de estudios m\'as significativos y el caso de estudio a desarrollar, para finalmente concluir sobre la importancia de Storm en la verificaci\'on de sistemas que dependen de eventos aleatorios. 
-
-\section{Contexto de creaci\'on de la herramienta, objetivos y usuarios de la misma.} 
-
-Storm fue desarrollado en la Universidad de RWTH Aachen, Alemania en el a\~no 2012 por Joost-Pieter Katoen y un grupo de estudiantes de doctorado a su cargo. En la d\'ecada anterior se generaron y mejoraron las herramientas probabil\'isticas de chequeo de modelos, en este contexto Storm se propuso como una plataforma de uso f\'acil para experimentar con nuevos algoritmos de verificaci\'on, modelos probabil\'isticamente ricos, algoritmos mejorados y diferentes formalismos de modelado. Actualmente la herramienta se utiliza tanto en la academia, (ya sea en la misma universidad donde se desarroll\'o, academias independientes o contratadas por la industria), como en la industria propiamente dicha. 
+En la d\'ecada pasada se generaron y mejoraron estas herramientas probabil\'isticas de chequeo de modelos, en este contexto Storm se propuso como una plataforma de uso f\'acil para experimentar con nuevos algoritmos de verificaci\'on, modelos probabil\'isticamente ricos, algoritmos mejorados y diferentes formalismos de modelado. Actualmente la herramienta se utiliza tanto en la academia, (ya sea en la misma universidad donde se desarroll\'o, academias independientes o contratadas por la industria), como en la industria propiamente dicha.
 
 \section{Descripci\'on de la herramienta del lado del usuario.}
 
@@ -60,9 +64,9 @@ HACER
 
 \section{Aspectos t\'ecnicos de la herramienta.}
 
-Storm se basa en modelos de Markov discretos y de tiempo continuo, se centra en las consultas de accesibilidad y su soporte incluye PCTL, CSL, recompensas esperadas y probabilidades condicionales. Tambi\'en ofrece soporte para varios lenguajes de especificaci\'on, entre ellos: PRISM, JANI, GSPNs, DFTs, cpGCL.
+Storm se basa en modelos de Markov de tiempo discreto y continuo, se centra en las consultas de accesibilidad y su soporte incluye PCTL, CSL, recompensas esperadas y probabilidades condicionales. Tambi\'en ofrece soporte para varios lenguajes de especificaci\'on, entre ellos: PRISM, JANI, GSPNs, DFTs, cpGCL.
 
-\textbf{Cadenas de Markov de tiempo discreto (DTMCs).} Una DTMC es un sistema de transici\'on de estados aumentados con probabilidades. Consiste en un conjunto discreto de estados que representan posibles configuraciones del sistema donde ocurren transiciones entre estados en pasos de tiempo discretos y la probabilidad de hacer transiciones entre estados est\'a dada por distribuciones discretas de probabilidad.
+Las \textbf{Cadenas de Markov de Tiempo Discreto (DTMCs)} son sistemas de transici\'on de estados aumentados con probabilidades. Una DTMC consiste en un conjunto discreto de estados que representan posibles configuraciones del sistema donde ocurren transiciones entre estados en pasos de tiempo discretos y la probabilidad de hacer transiciones entre estados est\'a dada por distribuciones discretas de probabilidad.
  
 Formalmente, una DTMC $D$ es una tupla $(S, s_0, P, L)$, donde $S$ es un conjunto finito de estados, $s_0 \in S$ es el estado inicial. $P: S \times S \rightarrow [0,1]$ es la matriz de probabilidad de transici\'on, donde $\forall  s' \in S$:
 \[
@@ -71,23 +75,45 @@ Formalmente, una DTMC $D$ es una tupla $(S, s_0, P, L)$, donde $S$ es un conjunt
 
 y $L: S \rightarrow 2^{AP}$ etiqueta los estados con proposiciones at\'omicas.
 
-En la Figura 1 se presenta un ejemplo de DTMC.
+En la Figura 1 (a) se presenta un ejemplo de DTMC.
 
 \begin{figure}[h]
-	\includegraphics[scale=0.8]{markovchain2.png}
+	\includegraphics[scale=0.6]{DTMC.png} \includegraphics[scale=0.6]{MDP.png}
 	\centering
-	\caption{DTMC}
+	\caption{(a) DTMC \hspace{2cm} (b) MDP}
 \end{figure}
 
-\textbf{Procesos de decisi\'on de Markov (MDPs).}
+\begin{figure}[h]
+	\includegraphics[scale=0.6]{cone.png}
+	\centering
+	\caption{Cilindro $C(w)$}
+\end{figure}
 
-Se trata de una extensi\'on de las DTMCs que permite una elecci\'on no determinista.
+Un camino, finito o infinito, a trav\'es de una DTMC, es una secuencia de estados $s_0s_1s_2...$ tales que $P(s_i, s_{i+1}) > 0$ $\forall i$, que representa una ejecuci\'on o comportamiento posible del sistema que el DTMC est\'a modelando. Para sacar conclusiones cuantitativas sobre este sistema es necesario definir un espacio de probabilidad sobre estos caminos. Los eventos que componen el espacio muestral $Path(s)$ ser\'an los conjuntos de caminos infinitos desde el estado $s$.  Dado un camino finito desde $s$, $w = ss_1s_2...s_n$, se definen los eventos b\'asicos denominados conjunto de cilindros (o conos) $C(w)$ al conjunto de los caminos infinitos con el prefijo com\'un $w$, como se ilustra en la Figura 2. La medida de probabilidad $Pr_s$ sobre el espacio muestral $Path(s)$, se define de la siguiente manera: $Pr_s(C(ss_1s_2...s_n)) = P(s,s_1)P(s_1,s_2)...P(s_{n-1}, s_n)$. As\'i por ejemplo: $Pr_s(C(ss_1s_2)) = P(s,s_1)P(s_1,s_2)$. \\
 
-\textbf{Cadenas de Markov de tiempo continuo.}
+Pero, algunos aspectos de un sistema pueden no ser probabil\'issticos y por lo tanto no deben modelarse probabil\'isticamente; por ejemplo:
 
-\textbf{Automata de Markov.}
+\begin{itemize}
+	\item Concurrencia y programaci\'on de componentes paralelos. Por ejemplo algoritmos distribuidos aleatorios o m\'ultiples procesos probabil\'isticos que operan asincr\'onicamente.
+	
+	\item Entornos desconocidos. Como en protocolos probabil\'isticos de seguridad. % o adversario desconocido.
+	
+	\item Subespecificaci\'on y par\'ametros del modelo desconocidos. Por ejemplo un protocolo de comunicaci\'on probabil\'istica dise\~nado para retrasos en la propagaci\'on de mensajes entre $d_{min}$ y $d_{max}$.
+	
+\end{itemize}
 
-\textbf{Especificaci\'on de propiedades.} La l\'ogica PCTL. Propiedades cuantitativas.
+Para ello se definen los \textbf{Procesos de Decisi\'on de Markov (MDPs).} Estos son una extensi\'on de las DTMCs que permite una elecci\'on no determinista. El conjunto de estados es discreto, las transiciones entre estados son pasos de tiempo discretos, y la elecci\'on es no determinista entre varias distribuciones discretas de probabilidad sobre estados sucesivos. En la Figura 1 (b) puede observarse un ejemplo de MDP.
+
+Formalmente un MDP $M$ es una tupla $(S, s_0, Steps, L)$, donde $S$, $s_0$ y $L$ est\'an definidas igual que para las DTMCs, y $Steps: S \rightarrow 2^{Act \times  Dist(S)}$ es la funci\'on de transici\'on probabil\'istica donde $Act$ es un conjunto de acciones y $Dist(S)$ es el conjunto de las distribuciones de probabilidad discretas sobre el conjunto de estados $S$.
+
+Un camino, finito o infinito, a trav\'es de un MDP es una secuencia de estados y pares de acci\'on / distribuci\'on $s_0(a_0, \mu_0)s_1 (a_1, \mu_1)s_2...$ donde $(a_i, \mu_i) \in Steps(s_i)$ y $\mu_i(s_{i+1})>0$. %notar que tanto la elecci\'on no determinista como la probabil\'istica se resuelven
+Se define un adversario $A$, tambi\'en conocido como ``schedulers" o ``policies", como un mapeo desde cualquier camino finito en el MDP a un par de acci\'on / distribuci\'on posterior. Para un adversario $A$ el MDP se reduce a un DTMC (posiblemente con infinitos estados), el conjunto resultante de caminos infinitos es $Path^A(s)$, sobre el cual se puede definir una medida de probabilidad $Pr^A_s$. Entonces para razonar sobre el comportamiento probabil\'istico en un MDP, primero debe resolverse el no determinismo con un adversario. \\
+
+Las \textbf{Cadenas de Markov de Tiempo Continuo (CTMCs)} son definidas de forma similar a las DTCM donde el espacio de estados es discreto, pero el tiempo es continuo y los retrasos (delays) est\'an distribuidos exponencialmente. Son adecuadas para modelos de vida \'util de componentes, tiempos entre llegadas, tasas de reacci\'on bioqu\'imica, etc. Tambi\'en se pueden definir los correspondientes MDPs de tiempo continuo. \\
+
+%\textbf{Automata de Markov.} \\
+
+Para la \textbf{especificaci\'on de propiedades} se puede utilizar, entre otras, PCTL (Probabilistic Computation Tree Logic) que es una l\'ogica temporal que extiende a la l\'ogica temporal no probabil\'istica CTL para poder describir propiedades cuantitativas de DTMCs/MDPs.
 
 \section{Casos de estudio}
 
