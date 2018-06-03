@@ -125,8 +125,7 @@ Se trata de un proyecto conjunto de Canad\'a y Alemania, en el cual se estudiaro
 
 \paragraph{Model-Checking Assisted Protocol Design for Ultra-Reliable Low-Latency Wireless Networks.}
 
-Consiste en una t\'ecnica desarrollada en Suecia en conjunto con Alemania, para dise\~nar protocolos para aplicaciones de seguridad cr\'itica. Tradicionalmente el desarrollo de sistemas inal\'ambricos de baja latencia se baso en simulaciones para identificar arquitecturas viables, la propuesta consisti\'o en usar Storm como herramienta de verificaci\'on probabil\'istica de modelos, para evaluar diferentes variantes de sistemas en la etapa de dise\~no, con la finalidad de proveer l\'imites en %la fiabilidad ??? de ??? 
-los dise\~nos a considerar. Se comprob\'o mediante el protocolo de EchoRing, pensado especialmente para aplicaciones industriales de seguridad cr\'itica y basado en sistemas de Tokens, que Storm es una potencial herramienta para la evaluaci\'on de los diferentes dise\~nos de mecanismos para el manejo de un token perdido.
+Consiste en una t\'ecnica desarrollada en Suecia en conjunto con Alemania, para dise\~nar protocolos para aplicaciones de seguridad cr\'itica. Tradicionalmente el desarrollo de sistemas inal\'ambricos de baja latencia se bas\'o en simulaciones para identificar arquitecturas viables, la propuesta consisti\'o en usar Storm como herramienta de verificaci\'on probabil\'istica de modelos, para evaluar diferentes variantes de sistemas en la etapa de dise\~no. Se comprob\'o mediante el protocolo de EchoRing, pensado especialmente para aplicaciones industriales de seguridad cr\'itica y basado en sistemas de Tokens, que Storm es una potencial herramienta para la evaluaci\'on de los diferentes dise\~nos de mecanismos para el manejo de un token perdido.
 
 \paragraph{Counterexamples for Expected Rewards.}
 
@@ -134,9 +133,7 @@ Se trata de un estudio desarrollado en Alemania con el prop\'osito de demostrar 
 
 \paragraph{Bounded Model Checking for Probabilistic Programs.}
 
-Estados Unidos junto con Alemania investigaron la aplicaci\'on de los enfoques de la verificaci\'on estandar de modelos para verificar propiedades en programas probabil\'isticos. Como el modelo operacional de los programas probabil\'isticos estandar es un proceso potencial param\'etrico infinito de Markov, 
-es imposible de una adaptaci\'on directa, % qué significa esto?? 
-por lo tanto se propuso un enfoque donde el modelo operacional es creado exitosamente y verificado paso a paso mediante una ejecuci\'on del programa. La evaluaci\'on de dicho modelo es corroborado mediante benchmarks y utilizando Storm para la s\'intesis de par\'ametros.
+Estados Unidos junto con Alemania investigaron la aplicaci\'on de los enfoques de la verificaci\'on estandar de modelos para verificar propiedades en programas probabil\'isticos. Como el modelo operacional de los programas probabil\'isticos estandar es un proceso potencial param\'etrico infinito de Markov, no es posible una adapctaci\'on directa a las t\'ecnicas existentes. Por lo tanto se propuso un enfoque intuitivamente donde el modelo operacional es creado exitosamente y verificado paso a paso mediante una ejecuci\'on del programa. La evaluaci\'on de dicho modelo es corroborado mediante benchmarks y utilizando Storm para la s\'intesis de par\'ametros.
 
 \paragraph{Model-based Safety Analysis for Vehicle Guidance Systems.}
 
