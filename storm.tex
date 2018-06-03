@@ -137,7 +137,41 @@ Estados Unidos junto con Alemania investigaron la aplicaci\'on de los enfoques d
 
 \paragraph{Model-based Safety Analysis for Vehicle Guidance Systems.}
 
-Este caso de estudio es el que hemos elegido para exponer en mayor profundidad. HACER.
+Este caso de estudio es el que hemos elegido para exponer en mayor profundidad. Fue realizado en Alemania por los creadores de la herramienta en conjunto con la empresa automotriz BMW para el analisis de seguridad en la fase de dise\~no de los sistemas de direccion de los veh\'iculos.
+
+Se propuso 3 formas de modelar los conceptos variados de seguridad y la arquitectura E/E (el\'ectrico y electr\'onico) para la conduccion automatizada, los arboles din\'amicos de fallas, arboles de fallas o arboles est\'atico de fallas. La mejor forma es usar los arboles din\'amicos de fallas porque la mayor ventaja es que, adem\'as de ser m\'as expresivo que un \'arbol est\'atico, se puede analizar por medio de Storm.
+
+
+\begin{figure}[h]
+	\includegraphics[scale=0.43]{blockdiagram.png} 
+	\caption{Diagramas de bloques de la direcci\'on del veh\'iculo.
+	Donde: $S_i$ sensors (los sensores del vehiculo), $EP$ Enviroment Perceptor (percibe toda la informaci\'on de los sensores), $TP$ trayectory planning (crea una nueva trayectoria de acuerdo a la informacion percibida) $AM$ Actuator Management (envia la informacion sobre las nuevas acciones a ejectutar), $a_i$ actuators (actores). Luego $VOTER$ elige la trayectoria m\'as segura, $TCS$ en caso de haber una falla Trajectory Checking and Selection elige la trayectoria mas segura y por \'ultimo $SWITCH$ elige los componentes $fb-EP$ y $fb-TP$ para para le percepcion de la informaci\'on y el planeamiento de la trayectoria ya que son los componentes de back-up en caso de una falla}
+\end{figure}
+
+
+\begin{figure}[h]
+	\includegraphics[scale=0.4]{EE.png}
+	\centering
+	\caption{Diferentes modelos de arquitecturas E/E donde $ADAS$ es una plataforma conectada a todos los sensores llamada Advanced Driver Assistance System donde esta implementada la funci\'on de dirrecci\'on del veh\'iculo, $ECU$ son las las unidades de control de los actores llamadas Electronic Control Unit y en caso de $I-ECU$ Integration ECU donde funciones no dedicadas pueden ser implementadas}
+\end{figure}
+
+Storm puede convertir los arboles din\'amicos de fallas a un Automata de Markov (parametrizado y determinista) y luego reduce el automata a una cadena param\'etrica de tiempo continuo de Markov.
+
+Entonces se modelaron 4 diferentes diagramas de bloques para la direcci\'on de los vehiculos con sus respectivos arboles de fallas y 3 diferentes arquitecturas E/E, que se diferenciaban en las decisiones que tomaban luego de que una falla ocurriera y se combinan para los diferentes conceptos de 'safety', creando 8 diferentes arboles din\'amicos de fallas.
+
+Se chequean con Storm obteniendo los siguientes resultados en las siguientes propiedades de safety:
+$FIT$: Failures in time,
+$SILFO$: System Integrity under Limited Fail-Operation,
+$Sentivity$ $analysis$ y $Probability$ $of$ $failure$
+
+dando como resultado los siguientes graficos y demostrando el el modelo SC2/B resulto ser el mejor. (Combinacion Figura 3.b) y Figura 4.2))	
+
+\begin{figure}[h]
+	\includegraphics[scale=0.5]{results.png}
+	\centering
+	\caption{Resultados}
+\end{figure}
+
 
 \section{Comparaci\'on con otras herramientas.}
 
