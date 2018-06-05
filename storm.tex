@@ -127,66 +127,97 @@ Para la \textbf{especificaci\'on de propiedades} se puede utilizar, entre otras,
 \section{Casos de estudio}
 
 A continuaci\'on desarrollamos brevemente algunos casos de estudio m\'as importantes de la herramienta.
+\paragraph{Automated Fine Tuning of Probabilistic Self-Stabilizing Algorithms. \cite{Saba}.}
 
-\paragraph{Ajustes Finamente Automatizados de Algoritmos Probabil\'isticamente Autoestables \cite{Saba}.}
-%Automated Fine Tuning of Probabilistic Self-Stabilizing Algorithms. 
 
 Se trata de un proyecto conjunto de Canad\'a y Alemania, en el cual se estudiaron tres diferentes t\'ecnicas para encontrar la distribuci\'on de probabilidad que logr\'a el m\'inimo tiempo promedio de recuperaci\'on para un input de un protocolo randomizado, distribuido y autoestable sin que modifique el comportamiento del algoritmo. Una de las tres t\'ecnicas consist\'ia en usar Storm para la ``sintes\'is del par\'ametro", donde Storm computa la funci\'on racional, describiendo el tiempo promedio de recuperaci\'on y luego usa 'solvers' (solucionadores) para encontrar el par\'ametro \'optimo de valuaci\'on. Se evaluaron las t\'ecnicas con el algoritmo de 'Herman' (Randomized token circulation) y se obtuvo que la t\'ecnica que utilizaba Storm fue la segunda mas r\'apida.
 
-\paragraph{Verificaci\'on de Modelos para el Dise\~no de Protocolos Ultra Confiables para Redes Inal\'ambricas de Baja Latencia \cite{Christian}.}
-%Model-Checking Assisted Protocol Design for Ultra-Reliable Low-Latency Wireless Networks.
+\paragraph{odel-Checking Assisted Protocol Design for Ultra-Reliable Low-Latency Wireless Networks. \cite{Christian}}
+
 
 Consiste en una t\'ecnica desarrollada en Suecia en conjunto con Alemania, para dise\~nar protocolos para aplicaciones de seguridad cr\'itica. Tradicionalmente el desarrollo de sistemas inal\'ambricos de baja latencia se bas\'o en simulaciones para identificar arquitecturas viables, la propuesta consisti\'o en usar Storm como herramienta de verificaci\'on probabil\'istica de modelos, para evaluar diferentes variantes de sistemas en la etapa de dise\~no. Se comprob\'o mediante el protocolo de EchoRing, pensado especialmente para aplicaciones industriales de seguridad cr\'itica y basado en sistemas de Tokens, que Storm es una potencial herramienta para la evaluaci\'on de los diferentes dise\~nos de mecanismos para el manejo de un token perdido.
 
-\paragraph{Contraejemplos para Recompensas Esperadas o Costos Esperados \cite{Tim}.}
-%Counterexamples for Expected Rewards.
+\paragraph{Counterexamples for Expected Rewards.\cite{Tim}.}
+
 Se trata de un estudio desarrollado en Alemania con el prop\'osito de demostrar que al emplear Storm como herramienta para la computaci\'on de contraejemplos en sistemas probabil\'isticos para ``recompezas esperadas o costos esperados", se puede obtener un subsistema minimial que ya lleva el costo o la recompenza m\'as alla del l\'imite permitido.
 
-\paragraph{Verificaci\'on de Modelos Acotada para Programas Probabil\'isticos \cite{Nils}.}
-%Bounded Model Checking for Probabilistic Programs.
+\paragraph{Bounded Model Checking for Probabilistic Programs. \cite{Nils}.}
+
 Estados Unidos junto con Alemania investigaron la aplicaci\'on de los enfoques de la verificaci\'on estandar de modelos para verificar propiedades en programas probabil\'isticos. Como el modelo operacional de los programas probabil\'isticos estandar es un proceso potencial param\'etrico infinito de Markov, no es posible una adapctaci\'on directa a las t\'ecnicas existentes. Por lo tanto se propuso un enfoque intuitivamente donde el modelo operacional es creado exitosamente y verificado paso a paso mediante una ejecuci\'on del programa. La evaluaci\'on de dicho modelo es corroborado mediante benchmarks y utilizando Storm para la s\'intesis de par\'ametros.
 
-\paragraph{Modelo Basado en el An\'alisis de Seguridad de un Sistema de Gu\'ia de Veh\'iculos \cite{Majdi}.} 
-%Model-based Safety Analysis for Vehicle Guidance Systems.
-Este caso de estudio es el que hemos elegido para exponer en mayor profundidad. Fue realizado en Alemania por los creadores de la herramienta en conjunto con la empresa automotriz BMW para el an\'alisis de seguridad en la fase de dise\~no de los sistemas de direcci\'on de los veh\'iculos.
+\paragraph{Model-based Safety Analysis for Vehicle Guidance Systems.\cite{Majdi}.} 
 
-Se propusieron tres formas de modelar los conceptos variados de seguridad y la arquitectura E/E (el\'ectrico y electr\'onico) para la conducci\'on automatizada: los \'arboles din\'amicos de fallas, los \'arboles de fallas y los \'arboles est\'aticos de fallas. La mejor forma result\'o ser usar los \'arboles din\'amicos de fallas, la mayor ventaja es que, adem\'as de ser m\'as expresivos que un \'arbol est\'atico, se pueden analizar por medio de Storm.
+Este caso de estudio es el que hemos elegido para exponer en mayor profundidad. Fue realizado en Alemania por los creadores de la herramienta en conjunto con la empresa automotriz BMW para el an\'alisis de 'safety' en la fase de dise\~no de los sistemas de direcci\'on asistida de los veh\'iculos.
 
-En la Figura 3 se observan los Diagramas de bloques de la direcci\'on del veh\'iculo, hay cuatro diagramas posibles (a), (b), (c) y (d). $s_i$ representa los sensores del veh\'iculo, $EP$ (Enviroment Perceptor) percibe toda la informaci\'on de los sensores, $TP$ (Trayectory Planning) crea una nueva trayectoria de acuerdo a la informaci\'on recibida, $AM$ (Actuator Management) env\'ia la informaci\'on sobre las nuevas acciones a ejectutar. Los $a_i$ representan a los actores. En el caso del diagrama (b) $Voter$ elige la trayectoria m\'as segura antes de transmitirla a los actores. En el diagrama (c) $TCS$ (Trajectory Checking and Selection) elige la trayectoria mas segura en caso de haber una falla. Por \'ultimo, en el diagrama (d) $Switch$ elige los componentes $fb$-$EP$ y $fb$-$TP$ para le percepci\'on de la informaci\'on y el planeamiento de la trayectoria ya que son los componentes de back-up en caso de una falla.
+El caso se dividio en 3 fases, Primero la construcci\'on de arboles din\'amicos de fallas apartir de la descripciones del sistema, Los sistemas varian segun la norma ISO 26262 donde 'safety-critically' es tecnicamente medido por lo que se llama ASIL (Automotive Safety Integrity Level), que va desde ASIL QM es ninguna medida de seguridad requerida hasta ASIL D (con ASIL A, B y C en el medio) que es el nivel de integridad de 'safety' mas alta. Luego combinar estos arboles din\'amicos de fallas de manera autom\'atica con modelos de fallas de hardware para diferentes partes funcionales de Hardware. Por \'ultimo  analizar los arboles din\'amicos de fallas con STORM.
 
-\begin{figure}[h]
-	\includegraphics[scale=0.43]{blockdiagram.png} 
-	\centering
-	\caption{Diagramas de bloques de la direcci\'on del veh\'iculo}
-\end{figure}
+Los arboles di\'namicos de fallas basicamente son estructuras que se crean a partir de arboles de fallas. Estos arboles son Grafos ac\'iclicos dirigidos con nodos tipados, los nodos son compuertas ('gates') y los nodos sin descendientes se llaman 'Eventos B\'asicos' ('BE'). Los arboles din\'amicos de fallas tienen mas funcionalidades, es decir mas tipos de compuertas, que permiten ser m\'as expresivos para definir el comportamiento del sistema cuando ocurre una falla.
 
-En la Figura 4 se ilustran los diferentes modelos de arquitecturas E/E, $ADAS$ (Advanced Driver Assistance System) es una plataforma conectada a todos los sensores donde esta implementada la funci\'on de dirrecci\'on del veh\'iculo, $ECU$ (Electronic Control Unit) son las las unidades de control de los actores y en caso de $I-ECU$ (Integration ECU) donde funciones no dedicadas pueden ser implementadas.
+El modelo basado en este caso de estudio se puede ver en la figura 3. Donde el comportamiento en caso de fallas de la arquitectura funcional, dado como 'functional block diagram' es expresado en un arbol din\'amico de fallas de 2 capas. La capa superficial modela al sistema de fallas en terminos de bloques de fallas $B_i$ mientras que la capa inferior modela las causas de las fallas de los bloques. Cada bloque funcional se le asigna una plataforma de Hardware donde un arbol din\'amico de fallas modela su comportamiento sobre las fallas.
 
 \begin{figure}[h]
-	\includegraphics[scale=0.4]{EE.png}
+	\includegraphics[scale=0.43]{modelbased.png} 
 	\centering
-	\caption{Diferentes modelos de arquitecturas E/E}
+	\caption{Modelo del caso de estudio en un enfoque de 'safety'}%Overview of the model-based safety approach
 \end{figure}
 
-Storm puede convertir los \'arboles din\'amicos de fallas a un Automata de Markov (parametrizado y determinista) y luego reducir el aut\'omata a una cadena param\'etrica de tiempo continuo de Markov.
 
-Entonces se modelaron cuatro diferentes diagramas de bloques para la direcci\'on de los veh\'iculos con sus respectivos \'arboles de fallas y tres diferentes arquitecturas E/E, que se diferenciaban en las decisiones que tomaban luego de que una falla ocurriera y se combinan para los distintos conceptos de 'safety', creando ocho diferentes \'arboles din\'amicos de fallas, que se chequearon con Storm obteniendo los siguientes resultados en las correspondientes propiedades de safety:
+Hay 4 enfoques para modelar los diagramas de bloques funcionales. Resumidamente, los diagramas funcionales cuentan con varios bloques, primero una cantidad de $s_i$ de sensores (camara del auto, sensores de proximidad, etc) que recolectan la informacion, luego un interpretador de la informacion recolectada, esa informacion es procesada por un Planeador de trayectorias que luego lo ejecutara el Administrador de actores con los actores $a_i$ (acelerador, freno, etc). No se va a profundizar en sus variantes pero difieren \'unicamente en como se comportan al momento de que una falla ocurra.
+Lo importante es que cada variante de los diagramas de bloques funcionales definen una propiedad de safety diferente, para ello tambien se tuvo que implementar 3 formas distintas para los modelos de las arquitecturas E/E (el\'ectrico y electr\'onico). Pero en general, estos modelos comparten este mismo funcinonamiento. Dados los sensores $s_i$ existe un sistema avanzado de asistencia de conducir o varios que obtienen esa informaci\'on y las unidades de control el\'ectrico transfieren la informaci\'on mediante un Bus de datos a los actores $a_i$. Estos modelos del sistema varian segun los modelos previos de los diagramas de bloques, \'osea segun el comportamiento de los mismos a la hora de que ocurra una falla.
 
-\begin{itemize}
-	\item $FIT$: Failures in time,
-	\item $SILFO$: System Integrity under Limited Fail-Operation,
-	\item $Sentivity$ $analysis$ y $Probability$ $of$ $failure$
-\end{itemize}
+Al usar arboles din\'amicos de fallas para modelar este caso de estudio, fue muy fac\'il evaluarlo con Storm ya que se reescribi\'o los arboles de fallas en arboles din\'amicos de fallas con una t\'ecnica citada en \c y luego Storm traduce estos arboles en Automatas deterministas parametrizados de Markov y por \'ultimo son reducidos a cadenas de tiempo continuo de Markov. En este paso lo que queda es evaluar estas cadenas de Markov con unas propiedades de la herramienta (alcanzabilidad, alcanzabilidad en un tiempo limite sin haber estado en un estado malo, y tiempo esperado para alcanzar un estado dado). Como resultado se pudo obtener los resultados de las probabilidades de las fallas de los modelos, su Integridad bajo operaciones fallidas limitadas, Fallas a lo largo del tiempo y el analisis sensitivo. %(?)
+
+%cita Junges, S., Guck, D., Katoen, J.P., Rensink, A., Stoelinga, M.: Fault trees on a diet: automated reduction by graph rewriting. Formal Asp. Comput. 29(4), 651–703 (2017)
+
+\begin{figure}[h]
+	\includegraphics[scale=0.3]{stormapproach.png} 
+	\centering
+	\caption{Proceso de como storm evalu\'o el modelo}%Overview of the storm-dft approach
+\end{figure}
+
+Y en conclusi\'on se pud\'o demostrar que es posible usar arboles dinamicos de fallas para modelar este tipo de problemas y mostrar sus ventajas.
+
+
+
+
+%donde  ayudan a definir el comportamiento del sistema.  Se propusieron dise~nar el modelo en tres capas de modelar los conceptos variados de seguridad y la arquitectura E/E (el\'ectrico y electr\'onico) para la conducci\'on automatizada: los \'arboles din\'amicos de fallas, los \'arboles de fallas y los \'arboles est\'aticos de fallas. La mejor forma result\'o ser usar los \'arboles din\'amicos de fallas, la mayor ventaja es que, adem\'as de ser m\'as expresivos que un \'arbol est\'atico, se pueden analizar por medio de Storm.
+
+%En la Figura 3 se observan los Diagramas de bloques de la direcci\'on del veh\'iculo, hay cuatro diagramas posibles (a), (b), (c) y (d). $s_i$ representa los sensores del veh\'iculo, $EP$ (Enviroment Perceptor) percibe toda la informaci\'on de los sensores, $TP$ (Trayectory Planning) crea una nueva trayectoria de acuerdo a la informaci\'on recibida, $AM$ (Actuator Management) env\'ia la informaci\'on sobre las nuevas acciones a ejectutar. Los $a_i$ representan a los actores. En el caso del diagrama (b) $Voter$ elige la trayectoria m\'as segura antes de transmitirla a los actores. En el diagrama (c) $TCS$ (Trajectory Checking and Selection) elige la trayectoria mas segura en caso de haber una falla. Por \'ultimo, en el diagrama (d) $Switch$ elige los componentes $fb$-$EP$ y $fb$-$TP$ para le percepci\'on de la informaci\'on y el planeamiento de la trayectoria ya que son los componentes de back-up en caso de una falla.
+
+%\begin{figure}[h]
+%	\includegraphics[scale=0.43]{blockdiagram.png} 
+%	\centering
+%	\caption{Diagramas de bloques de la direcci\'on del veh\'iculo}
+%\end{figure}
+
+%En la Figura 4 se ilustran los diferentes modelos de arquitecturas E/E, $ADAS$ (Advanced Driver Assistance System) es una plataforma conectada a todos los sensores donde esta implementada la funci\'on de dirrecci\'on del veh\'iculo, $ECU$ (Electronic Control Unit) son las las unidades de control de los actores y en caso de $I-ECU$ (Integration ECU) donde funciones no dedicadas pueden ser implementadas.
+
+%\begin{figure}[h]
+%	\includegraphics[scale=0.4]{EE.png}
+%	\centering
+%	\caption{Diferentes modelos de arquitecturas E/E}
+%\end{figure}
+
+%Storm puede convertir los \'arboles din\'amicos de fallas a un Automata de Markov (parametrizado y determinista) y luego reducir el aut\'omata a una cadena param\'etrica de tiempo continuo de Markov.
+
+%Entonces se modelaron cuatro diferentes diagramas de bloques para la direcci\'on de los veh\'iculos con sus respectivos \'arboles de fallas y tres diferentes arquitecturas E/E, que se diferenciaban en las decisiones que tomaban luego de que una falla ocurriera y se combinan para los distintos conceptos de 'safety', creando ocho diferentes \'arboles din\'amicos de fallas, que se chequearon con Storm obteniendo los siguientes resultados en las correspondientes propiedades de safety:
+
+%\begin{itemize}
+%	\item $FIT$: Failures in time,
+%	\item $SILFO$: System Integrity under Limited Fail-Operation,
+%	\item $Sentivity$ $analysis$ y $Probability$ $of$ $failure$
+%\end{itemize}
 
 %dando como resultado los siguientes gr\'aficos y demostrando el el modelo SC2/B resulto ser el mejor. (Combinacion Figura 3.b) y Figura 4.2))	
 
-En la Figura 5 se observan los resultados, los mismos demuestran que el modelo SC2/B result\'o ser el mejor, como puede deducirse al combinar las Figuras 3(b) y 4(b). 
+%En la Figura 5 se observan los resultados, los mismos demuestran que el modelo SC2/B result\'o ser el mejor, como puede deducirse al combinar las Figuras 3(b) y 4(b). 
 
-\begin{figure}[h]
-	\includegraphics[scale=0.5]{results.png}
-	\centering
-	\caption{Resultados}
-\end{figure}
+%\begin{figure}[h]
+%	\includegraphics[scale=0.5]{results.png}
+%	\centering
+%	\caption{Resultados}
+%\end{figure}
+
 
 \section{Comparaci\'on con otras herramientas.}
 
