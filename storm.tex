@@ -65,11 +65,46 @@ Para hacer funcionar Storm hay varias opciones, una muy sencilla es bajar una ma
 
 Una vez descargado e iniciada la maquina virtual se puede ir al directorio de binarios en una terminal con
 
-´´´
+\begin{verbatim}
 cd $STORM_DIR
-´´´
+\end{verbatim}
 
-Con un modelo de PRISM
+Con un modelo de PRISM y un archivo de propiedades se puede llamar el comando
+
+\begin{verbatim}
+storm --prism $PRISM_BENCH_DIR/models/dtmcs/brp/brp.pm /
+	  --prop $PRISM_BENCH_DIR/models/dtmcs/brp/p1.pctl --constants N=16,MAX=2
+\end{verbatim}
+
+donde --prism indica el archivo PRIM, --prop el archivo de propiedades y --constants es una lista de constantes para la corrida
+\begin{verbatim}
+$PRISM_BENCH_DIR
+indica una ubicacion definida por la maquina virtual donde
+hay varios ejemplos de archivos PRISM que aparecen en la pagina
+\end{verbatim}
+					
+
+la salida de la corrida es la siguiente:
+
+\begin{verbatim}
+Time for model construction: 0.862s.
+
+-------------------------------------------------------------- 
+Model type: 	DTMC (sparse)
+States: 	613
+Transitions: 	803
+Reward Models:  none
+Labels: 	3
+	* deadlock -> 3 state(s)
+	* init -> 1 state(s)
+	* (s = 5) -> 32 state(s)
+choice labels: 	no
+-------------------------------------------------------------- 
+
+Model checking property P=? [F (s = 5)] ...
+Result (initial states): 0.0004233333932
+	Time for model checking: 0.029s.	
+\end{verbatim}
 
 \section{Aspectos t\'ecnicos de la herramienta.}
 
