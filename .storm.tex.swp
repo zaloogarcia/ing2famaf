@@ -34,7 +34,7 @@ La verificaci\'on de modelos %(o model checking)
 consiste en m\'etodos autom\'aticos de comprobaci\'on de un sistema formal. Dado el modelo de un sistema, en la mayor\'ia de las ocasiones derivado del hardware o del software de un sistema inform\'atico, se comprueba exhaustiva y autom\'aticamente si este modelo cumple con una especificaci\'on dada. El modelo suele estar representado como un sistema de transiciones %, es decir, un grafo dirigido, 
 que consta de un conjunto de v\'ertices y aristas, donde un conjunto de proposiciones at\'omicas se asocia a cada nodo. As\'i pues, los nodos representan los estados posibles de un sistema, las aristas posibles evoluciones del mismo, mediante ejecuciones permitidas, que alteran el estado, mientras que las proposiciones representan las propiedades b\'asicas que se satisfacen en cada punto de la ejecuci\'on. Esta representaci\'on se conoce como sistema de transici\'on etiquetado (LTS). La especificaci\'on que debe verificar el modelo contiene requisitos de seguridad tales como la ausencia de bloqueos mutuos (deadlocks) y estados cr\'iticos similares que pueden causar la falla del sistema, la misma es formalmente descrita mediante una f\'ormula, a menudo escrita en alguna variedad de l\'ogica temporal (por ejemplo LTL). Si la especificaci\'on requerida no se verifica, usualmente los programas de verificaci\'on de modelos, devuelven la traza que lleva a la falla en el sistema. En conclusi\'on, la verificaci\'on de modelos comprende las t\'ecnicas para verificar autom\'aticamente las propiedades de correcci\'on de sistemas de estados finitos.
 
-Un modelo de verificaci\'on probabil\'istico es un tipo especial de verificador en el cual, en lugar de representar al sistema mediante una m\'aquina de estados finitos, se utiliza un aut\'omata probabil\'istico, que puede ser definido, utilizando cadenas de Marcov. Adem\'as, las especificaciones a verificar deben ser descriptas en alg\'un tipo de l\'ogica temporal probabil\'istica (por ejemplo PCTL). Por \'ultimo, el modelo de verificaci\'on probabil\'istico no devuelve trazas de errores, sino resultados cuantitativos.
+Un modelo de verificaci\'on probabil\'istico es un tipo especial de verificador en el cual, en lugar de representar al sistema mediante una m\'aquina de estados finitos, se utiliza un aut\'omata probabil\'istico, que puede ser definido, utilizando cadenas de Markov. Adem\'as, las especificaciones a verificar deben ser descriptas en alg\'un tipo de l\'ogica temporal probabil\'istica (por ejemplo PCTL). Por \'ultimo, el modelo de verificaci\'on probabil\'istico no devuelve trazas de errores, sino resultados cuantitativos.
 
 El presente trabajo es un estudio detallado de la herramienta de verificaci\'on probabil\'istica Storm checker. Lo que sigue del art\'iculo esta estructurado de la siguiente manera: a continuaci\'on presentaremos el contexto de creaci\'on de la herramienta, sus principales objetivos, usos y su empleo a nivel usuario. Luego describiremos los aspectos t\'ecnicos m\'as relevantes. %como el empleo de cadenas de markov discretas, etc. 
 Finalmente presentaremos los casos de estudios m\'as significativos y el caso de estudio a desarrollar, para finalmente concluir sobre la importancia de Storm en la verificaci\'on de sistemas que dependen de eventos aleatorios. 
@@ -65,11 +65,46 @@ Para hacer funcionar Storm hay varias opciones, una muy sencilla es bajar una ma
 
 Una vez descargado e iniciada la maquina virtual se puede ir al directorio de binarios en una terminal con
 
-´´´
+\begin{verbatim}
 cd $STORM_DIR
-´´´
+\end{verbatim}
 
-Con un modelo de PRISM
+Con un modelo de PRISM y un archivo de propiedades se puede llamar el comando
+
+\begin{verbatim}
+storm --prism $PRISM_BENCH_DIR/models/dtmcs/brp/brp.pm /
+	  --prop $PRISM_BENCH_DIR/models/dtmcs/brp/p1.pctl --constants N=16,MAX=2
+\end{verbatim}
+
+donde --prism indica el archivo PRIM, --prop el archivo de propiedades y --constants es una lista de constantes para la corrida
+\begin{verbatim}
+$PRISM_BENCH_DIR
+indica una ubicacion definida por la maquina virtual donde
+hay varios ejemplos de archivos PRISM que aparecen en la pagina
+\end{verbatim}
+					
+
+la salida de la corrida es la siguiente:
+
+\begin{verbatim}
+Time for model construction: 0.862s.
+
+-------------------------------------------------------------- 
+Model type: 	DTMC (sparse)
+States: 	613
+Transitions: 	803
+Reward Models:  none
+Labels: 	3
+	* deadlock -> 3 state(s)
+	* init -> 1 state(s)
+	* (s = 5) -> 32 state(s)
+choice labels: 	no
+-------------------------------------------------------------- 
+
+Model checking property P=? [F (s = 5)] ...
+Result (initial states): 0.0004233333932
+	Time for model checking: 0.029s.	
+\end{verbatim}
 
 \section{Aspectos t\'ecnicos de la herramienta.}
 
@@ -165,7 +200,7 @@ El modelo basado en este caso de estudio se puede ver en la figura 3. Donde el c
 Hay 4 enfoques para modelar los diagramas de bloques funcionales. Resumidamente, los diagramas funcionales cuentan con varios bloques, primero una cantidad de $s_i$ de sensores (camara del auto, sensores de proximidad, etc) que recolectan la informacion, luego un interpretador de la informacion recolectada, esa informacion es procesada por un Planeador de trayectorias que luego lo ejecutara el Administrador de actores con los actores $a_i$ (acelerador, freno, etc). No se va a profundizar en sus variantes pero difieren \'unicamente en como se comportan al momento de que una falla ocurra.
 Lo importante es que cada variante de los diagramas de bloques funcionales definen una propiedad de safety diferente, para ello tambien se tuvo que implementar 3 formas distintas para los modelos de las arquitecturas E/E (el\'ectrico y electr\'onico). Pero en general, estos modelos comparten este mismo funcinonamiento. Dados los sensores $s_i$ existe un sistema avanzado de asistencia de conducir o varios que obtienen esa informaci\'on y las unidades de control el\'ectrico transfieren la informaci\'on mediante un Bus de datos a los actores $a_i$. Estos modelos del sistema varian segun los modelos previos de los diagramas de bloques, \'osea segun el comportamiento de los mismos a la hora de que ocurra una falla.
 
-Al usar arboles din\'amicos de fallas para modelar este caso de estudio, fue muy fac\'il evaluarlo con Storm ya que se reescribi\'o los arboles de fallas en arboles din\'amicos de fallas con una t\'ecnica citada en \c y luego Storm traduce estos arboles en Automatas deterministas parametrizados de Markov y por \'ultimo son reducidos a cadenas de tiempo continuo de Markov. En este paso lo que queda es evaluar estas cadenas de Markov con unas propiedades de la herramienta (alcanzabilidad, alcanzabilidad en un tiempo limite sin haber estado en un estado malo, y tiempo esperado para alcanzar un estado dado). Como resultado se pudo obtener los resultados de las probabilidades de las fallas de los modelos, su Integridad bajo operaciones fallidas limitadas, Fallas a lo largo del tiempo y el analisis sensitivo. %(?)
+Al usar arboles din\'amicos de fallas para modelar este caso de estudio, fue muy fac\'il evaluarlo con Storm ya que se reescribi\'o los arboles de fallas en arboles din\'amicos de fallas con una t\'ecnica citada en \cite{Tree} y luego Storm traduce estos arboles en Automatas deterministas parametrizados de Markov y por \'ultimo son reducidos a cadenas de tiempo continuo de Markov. En este paso lo que queda es evaluar estas cadenas de Markov con unas propiedades de la herramienta (alcanzabilidad, alcanzabilidad en un tiempo limite sin haber estado en un estado malo, y tiempo esperado para alcanzar un estado dado). Como resultado se pudo obtener los resultados de las probabilidades de las fallas de los modelos, su Integridad bajo operaciones fallidas limitadas, Fallas a lo largo del tiempo y el analisis sensitivo. %(?)
 
 %cita Junges, S., Guck, D., Katoen, J.P., Rensink, A., Stoelinga, M.: Fault trees on a diet: automated reduction by graph rewriting. Formal Asp. Comput. 29(4), 651–703 (2017)
 
@@ -235,6 +270,9 @@ Otros model checkers probabil\'isticos: PRISM (utiliza DTMCs, MDPs, CTMCs), ETMC
 	\bibitem{Nils} Nils Jansen, Christian Dehnert, Benjamin Lucien Kaminski, Joost-Pieter Katoen, Lukas Westhofen. Bounded Model Checking for Probabilistic Programs. Proc. of the 14th International Symposium on Automated Technology for Verification and Analysis (ATVA 2016), Volume 9938 of LNCS, Springer, 2016.
 	
 	\bibitem{Majdi} Majdi Ghadhab, Sebastian Junges, Joost-Pieter Katoen, Matthias Kuntz, Matthias Volk. Model-based Safety Analysis for Vehicle Guidance Systems. Proc. of SAFECOMP, Volume 10488 of LNCS, pages 3–19, Springer, 2017.
+	
+	\bibitem{Tree} Junges, S., Guck, D., Katoen, J.P., Rensink, A., Stoelinga, M.: Fault trees on a diet: automated reduction by graph rewriting. Formal Asp. Comput. 29(4), 651–703 (2017)
+
 \end{thebibliography}
 
 
