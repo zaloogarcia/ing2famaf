@@ -2,7 +2,7 @@
 %Gummi|065|=)
 
 \usepackage{latexsym,amssymb,amsmath,graphicx,epsfig,amsthm}
-\usepackage[top=2cm, bottom=2.5cm, left=2cm, right=2cm]{geometry}
+\usepackage[top=1cm, bottom=1.5cm, left=1.7cm, right=1.5cm]{geometry}
 \graphicspath{ {Documents/ing2famaf} }
 
 \title{\textbf{Storm, un verificador de modelos probabil\'istico moderno}}
@@ -61,10 +61,11 @@ En la d\'ecada pasada se generaron y mejoraron estas herramientas probabil\'isti
 
 \section{Descripci\'on de la herramienta del lado del usuario.}
 
-Para hacer funcionar Storm hay varias opciones, una muy sencilla es bajar una maquina virtual que esta en la pagina de Storm que tiene todas las dependencias instaladas y en funcionamiento.
+Hay varias opciones para poner en funcionamiento Storm, la m\'as sencilla de todas es bajar una maquina virtual con todas las dependencias instaladas y en funcionamiento, la misma est\'a disponible en la p\'agina.
 
+%Para hacer funcionar Storm hay varias opciones, una muy sencilla es bajar una maquina virtual que esta en la pagina de Storm que tiene todas las dependencias instaladas y en funcionamiento.
 
-\title{Tipos de inputs:}
+\title{Tipos de inputs que soporta Storm:}
 
 \begin{itemize}
 	\item PRISM, JANI, explict: se ejecuta con storm o storm-pars
@@ -76,7 +77,8 @@ Para hacer funcionar Storm hay varias opciones, una muy sencilla es bajar una ma
 	\item pGCL: se ejecuta con storm-pgcl
 \end{itemize} 
 
-Por ejemplo con un modelo de PRISM de ejemplo es el siguiente:
+%Por ejemplo con un modelo de PRISM de ejemplo es el siguiente:
+A continuaci\'on se presenta a modo de ejemplo, un modelo escrito en PRISM:
 
 \begin{verbatim}
 	// Knuth's model of a fair die using only fair coins
@@ -111,7 +113,7 @@ Y asumiendo que ese archivo se llamo ejemplo.pm, corremos:
 $ storm --prism ejemplo.pm --buildfull
 \end{verbatim}
 					
-la salida de la corrida es la siguiente:
+La salida de la corrida es la siguiente:
 
 \begin{verbatim}
 	Storm 1.0.0
@@ -133,9 +135,9 @@ la salida de la corrida es la siguiente:
 	--------------------------------------------------------------i
 \end{verbatim}
 
-Esto nos dice que usamos las cadenas de Markov discretas con 13 estados y 20 transiciones y dos labels, deadlock e init
+Esto significa que se usaron las cadenas de Markov discretas con 13 estados y 20 transiciones y dos labels, deadlock e init.
 
-Se puede agregar un check de propiedad agregando:
+Se puede agregar un check de propiedad escribiendo:
 
 \begin{verbatim}
 $ storm --prism die.pm --prop "P=? [F s=7&d=1]"
@@ -220,36 +222,43 @@ Estados Unidos junto con Alemania investigaron la aplicaci\'on de los enfoques d
 
 Este caso de estudio es el que hemos elegido para exponer en mayor profundidad. Fue realizado en Alemania por los creadores de la herramienta en conjunto con la empresa automotriz BMW para el an\'alisis de 'safety' en la fase de dise\~no de los sistemas de direcci\'on asistida de los veh\'iculos.
 
-El caso se dividio en 3 fases, Primero la construcci\'on de arboles din\'amicos de fallas apartir de la descripciones del sistema, Los sistemas varian segun la norma ISO 26262 donde 'safety-critically' es tecnicamente medido por lo que se llama ASIL (Automotive Safety Integrity Level), que va desde ASIL QM es ninguna medida de seguridad requerida hasta ASIL D (con ASIL A, B y C en el medio) que es el nivel de integridad de 'safety' mas alta. Luego combinar estos arboles din\'amicos de fallas de manera autom\'atica con modelos de fallas de hardware para diferentes partes funcionales de Hardware. Por \'ultimo  analizar los arboles din\'amicos de fallas con STORM.
+El trabajo se dividi\'o en tres fases, primero se construyeron \'arboles din\'amicos de fallas a partir de la descripciones del sistema. Los sistemas var\'ian seg\'un la norma ISO 26262 donde la 'safety-critically' es medida seg\'un la ASIL (Automotive Safety Integrity Level), que va desde ASIL QM, que significa ninguna medida de seguridad requerida, hasta ASIL D, que es el nivel de integridad de 'safety' mas alto, pasando entre medio por ASIL A, B y C. Luego se combinaron estos \'arboles din\'amicos de fallas de manera autom\'atica con modelos de fallas de hardware para diferentes partes funcionales de Hardware. Por \'ultimo se analizaron los \'arboles din\'amicos de fallas con Storm.
 
-Los arboles di\'namicos de fallas basicamente son estructuras que se crean a partir de arboles de fallas. Estos arboles son Grafos ac\'iclicos dirigidos con nodos tipados, los nodos son compuertas ('gates') y los nodos sin descendientes se llaman 'Eventos B\'asicos' ('BE'). Los arboles din\'amicos de fallas tienen mas funcionalidades, es decir mas tipos de compuertas, que permiten ser m\'as expresivos para definir el comportamiento del sistema cuando ocurre una falla.
+Los \'arboles di\'namicos de fallas son estructuras que se crean a partir de \'arboles de fallas comunes. Un \'arbol de fallas se representa a trav\'es de un grafo ac\'iclico dirigido con nodos tipados. Los nodos son compuertas ('gates') y los nodos sin descendientes se llaman 'Eventos B\'asicos' ('BE'). Los \'arboles din\'amicos de fallas tienen mas funcionalidades, es decir mas tipos de compuertas, que permiten ser m\'as expresivos para definir el comportamiento del sistema cuando ocurre una falla.
 
-El modelo basado en este caso de estudio se puede ver en la figura 3. Donde el comportamiento en caso de fallas de la arquitectura funcional, dado como 'functional block diagram' es expresado en un arbol din\'amico de fallas de 2 capas. La capa superficial modela al sistema de fallas en terminos de bloques de fallas $B_i$ mientras que la capa inferior modela las causas de las fallas de los bloques. Cada bloque funcional se le asigna una plataforma de Hardware donde un arbol din\'amico de fallas modela su comportamiento sobre las fallas.
+En la Figura 3 podemos observar el modelo en el que se bas\'o este caso de estudio. El comportamiento en caso de fallas de la arquitectura funcional, dado como 'functional block diagram' es expresado en un \'arbol din\'amico de fallas de dos capas. La capa superficial modela al sistema de fallas en t\'erminos de bloques de fallas $B_i$ mientras que la capa inferior modela las causas de las fallas de los bloques. Cada bloque funcional se le asigna una plataforma de Hardware donde un \'arbol din\'amico de fallas modela su comportamiento sobre las fallas.
 
 \begin{figure}[h]
 	\includegraphics[scale=0.43]{modelbased.png} 
 	\centering
-	\caption{Modelo del caso de estudio en un enfoque de 'safety'}%Overview of the model-based safety approach
+	\caption{Descripci\'on general del modelo basado en un enfoque 'safety'}%Overview of the model-based safety approach
 \end{figure}
 
+\begin{figure}[h]
+	\includegraphics[scale=0.43]{blockdiagram.png} 
+	\centering
+	\caption{Diagramas de bloques de la direcci\'on del veh\'iculo}
+\end{figure}
 
-Hay 4 enfoques para modelar los diagramas de bloques funcionales. Resumidamente, los diagramas funcionales cuentan con varios bloques, primero una cantidad de $s_i$ de sensores (camara del auto, sensores de proximidad, etc) que recolectan la informacion, luego un interpretador de la informacion recolectada, esa informacion es procesada por un Planeador de trayectorias que luego lo ejecutara el Administrador de actores con los actores $a_i$ (acelerador, freno, etc). No se va a profundizar en sus variantes pero difieren \'unicamente en como se comportan al momento de que una falla ocurra.
-Lo importante es que cada variante de los diagramas de bloques funcionales definen una propiedad de safety diferente, para ello tambien se tuvo que implementar 3 formas distintas para los modelos de las arquitecturas E/E (el\'ectrico y electr\'onico). Pero en general, estos modelos comparten este mismo funcinonamiento. Dados los sensores $s_i$ existe un sistema avanzado de asistencia de conducir o varios que obtienen esa informaci\'on y las unidades de control el\'ectrico transfieren la informaci\'on mediante un Bus de datos a los actores $a_i$. Estos modelos del sistema varian segun los modelos previos de los diagramas de bloques, \'osea segun el comportamiento de los mismos a la hora de que ocurra una falla.
+Hay cuatro enfoques para modelar los diagramas de bloques funcionales, como puede observarse en la Figura 4. Resumidamente, los diagramas funcionales cuentan con varios bloques, primero se encuetran los sensores $s_i$ (c\'amara del auto, sensores de proximidad, etc) que recolectan la informaci\'on y se la pasan al Interpretador, esa informaci\'on es procesada por un Planeador que define una trayectoria que ser\'a finalmente ejecutada por el Administrador de los actores $a_i$ (acelerador, freno, etc). No profundizaremos en las diferencias entre estas cuatro variantes, las mismas difieren \'unicamente en como se comportan al momento de que una falla ocurra. Lo m\'as relevante es que cada variante de los diagramas de bloques funcionales definen una propiedad de safety diferente, para ello tambi\'en se tuvo que implementar tres formas distintas para los modelos de las arquitecturas E/E (El\'ectrico y Electr\'onico) como se muestra en la Figura 5. Pero en general, estos modelos comparten el mismo funcinonamiento. Dados los sensores $s_i$ existe uno o varios sistemas avanzados de asistencia al conductor que obtienen esa informaci\'on y las unidades de control el\'ectrico la transfieren mediante un Bus de datos a los actores $a_i$. Estos modelos del sistema var\'ian seg\'un los modelos previos de los diagramas de bloques, \'osea seg\'un el comportamiento de los mismos a la hora de que ocurra una falla.
 
-Al usar arboles din\'amicos de fallas para modelar este caso de estudio, fue muy fac\'il evaluarlo con Storm ya que se reescribi\'o los arboles de fallas en arboles din\'amicos de fallas con una t\'ecnica citada en \cite{Tree} y luego Storm traduce estos arboles en Automatas deterministas parametrizados de Markov y por \'ultimo son reducidos a cadenas de tiempo continuo de Markov. En este paso lo que queda es evaluar estas cadenas de Markov con unas propiedades de la herramienta (alcanzabilidad, alcanzabilidad en un tiempo limite sin haber estado en un estado malo, y tiempo esperado para alcanzar un estado dado). Como resultado se pudo obtener los resultados de las probabilidades de las fallas de los modelos, su Integridad bajo operaciones fallidas limitadas, Fallas a lo largo del tiempo y el analisis sensitivo. %(?)
+\begin{figure}[h]
+	\includegraphics[scale=0.4]{EE.png}
+	\centering
+	\caption{Diferentes modelos de arquitecturas E/E}
+\end{figure}
+
+Resulta bastante sencillo evaluar este caso de estudio en Storm, un esquema de este proceso se presenta en la Figura 6, simplemente se reescriben los \'arboles de fallas como \'arboles din\'amicos de fallas utilizando la t\'ecnica descripta en \cite{Tree} y luego Storm traduce estos \'arboles en Automatas deterministas parametrizados de Markov que por \'ultimo son reducidos a cadenas de tiempo continuo de Markov. Luego solo queda evaluar estas cadenas de Markov con las propiedades que ofrece la herramienta (alcanzabilidad, alcanzabilidad en un tiempo limite sin haber pasado por un estado malo, y tiempo esperado para alcanzar un estado dado). Como resultado se obtuvieron las probabilidades de falla de los modelos, su integridad bajo operaciones fallidas limitadas, fallas a lo largo del tiempo y el \'analisis sensitivo. %(?)
 
 %cita Junges, S., Guck, D., Katoen, J.P., Rensink, A., Stoelinga, M.: Fault trees on a diet: automated reduction by graph rewriting. Formal Asp. Comput. 29(4), 651–703 (2017)
 
 \begin{figure}[h]
 	\includegraphics[scale=0.3]{stormapproach.png} 
 	\centering
-	\caption{Proceso de como storm evalu\'o el modelo}%Overview of the storm-dft approach
+	\caption{Proceso para evaluar el modelo con Storm}%Overview of the storm-dft approach
 \end{figure}
 
-Y en conclusi\'on se pud\'o demostrar que es posible usar arboles dinamicos de fallas para modelar este tipo de problemas y mostrar sus ventajas.
-
-
-
+En conclusi\'on se pud\'o demostrar que es posible y conveniente usar \'arboles din\'amicos de fallas para modelar este tipo de problemas.
 
 %donde  ayudan a definir el comportamiento del sistema.  Se propusieron dise~nar el modelo en tres capas de modelar los conceptos variados de seguridad y la arquitectura E/E (el\'ectrico y electr\'onico) para la conducci\'on automatizada: los \'arboles din\'amicos de fallas, los \'arboles de fallas y los \'arboles est\'aticos de fallas. La mejor forma result\'o ser usar los \'arboles din\'amicos de fallas, la mayor ventaja es que, adem\'as de ser m\'as expresivos que un \'arbol est\'atico, se pueden analizar por medio de Storm.
 
@@ -289,12 +298,11 @@ Y en conclusi\'on se pud\'o demostrar que es posible usar arboles dinamicos de f
 %	\caption{Resultados}
 %\end{figure}
 
-
 \section{Comparaci\'on con otras herramientas.}
 
 Otros model checkers probabil\'isticos son PRISM (utiliza DTMCs, MDPs, CTMCs), ETMCC/MRMC (utiliza DTMCs, CTMCs), LiQuor (verificaci\'on LTL para MDPs), RAPTURE (prototipo para la abstracci\'on / refinamiento de MDPs). Model checkers probabil\'isticos basados en simulaci\'on: APMC, Ymer, VESTA; de comprobaci\'on de CSL para CTMCs: APNN-Toolbox, SMART; para m\'ultiples formalismos: CADP, M\"{o}bius.
 
-Nos interesa comparar STORM con alguna herramienta estudiada en los demas grupos, por ejemplo PRISM y ModelToolset en el siguiente grafico: 
+Nos interesa comparar STORM con alguna herramienta estudiada por los dem\'as grupos, por ejemplo PRISM y ModelToolset.  
 
 \begin{figure}[h]
 	\includegraphics[scale=0.28]{comparacion.png} 
@@ -304,11 +312,11 @@ Nos interesa comparar STORM con alguna herramienta estudiada en los demas grupos
 
 \end{figure}
 
-
-Donde se puede observar los diferentes motores que usan cada herramienta y que funcionalidades soportan (con un tilde), cuales a\'un no pero la implementaci\'on esta en proceso (denotada con "*"), los numeros (1,2,3,4) representan que la herramienta usa otras herramientas especificas para soportar esas funcionalidades.
-
+En la Figura 7 se puede observar los diferentes motores que usa cada herramienta, las funcionalidades que soportan est\'an marcadas con un tilde, con '*' se indic\'o las que a\'un no pero la implementaci\'on esta en proceso, los n\'umeros (1,2,3,4) indican si la herramienta usa otras herramientas espec\'ificas para soportar esas funcionalidades.
 
 \section{Conclusiones.}
+
+Podemos concluir que Storm es una herramienta nueva, con poco uso en comparaci\'on con otras, actualmente las versiones para muchas distribuciones de linux no son estables, lo que hace que sea muy tediosa de instalar, pero una vez en funcionamiento es muy fac\'il de usar. Se puede modelar sistemas en el lenguaje PRISM, usar las plataformas de C++ o Python para Storm (PyStorm), entre otras funcionalidades que hacen a la herramienta muy vers\'atil. Promete un gran incremento en su uso ya que es un herramienta totalmente modular, y ha demostrado que puede modelar casos de la industria, sacando ventajas del uso de Dynamic Fault Trees y el enfoque de evaluar diferentes propiedades del sistema al mismo tiempo.
 
 \begin{thebibliography}{99}
 	\bibitem{Saba} Saba Aflaki, Matthias Volk, Borzoo Bonakdarpour, Joost-Pieter Katoen, Arne Storjohann. Automated Fine Tuning of Probabilistic Self-Stabilizing Algorithms. Proc. of 36th IEEE Symposium on Reliable Distributed Systems (SRDS), pages 94–103, IEEE CS (Recipient of Best Paper Award), 2017.	
