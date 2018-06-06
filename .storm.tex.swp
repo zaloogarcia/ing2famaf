@@ -310,8 +310,10 @@ Donde se puede observar los diferentes motores que usan cada herramienta y que f
 
 \section{Conclusiones.}
 
+Podemos concluir que Storm es una herramienta nueva, con poco uso en comparaci\'on con otras herramientas, al principio muy tedioso para instalar, ya que actualmente las versiones para muchas distribuciones de linux no son estables, pero una vez que funciona, es muy fac\'il de usar. Se puede modelar sistemas en el lenguaje de PRISM, usar las plataformas de C++ o Python para Storm (PyStorm). Promete una gran escabilidad ya que es un herramienta totalmente modular, y a demostrado que puede modelar casos en la industria con ventajas en el uso de Dynamic Fault Trees teniendo un enfoque a evaluar diferentes propiedades del sistema al mismo tiempo.
+
 \begin{thebibliography}{99}
-	\bibitem{Saba} Saba Aflaki, Matthias Volk, Borzoo Bonakdarpour, Joost-Pieter Katoen, Arne Storjohann. Automated Fine Tuning of Probabilistic Self-Stabilizing Algorithms. Proc. of 36th IEEE Symposium on Reliable Distributed Systems (SRDS), pages 94–103, IEEE CS (Recipient of Best Paper Award), 2017.	
+	\bibitem{Saba} Saba Aflaki, Matthias Volk, Borzoo Bonakdarpour, Joost-Pieter sKatoen, Arne Storjohann. Automated Fine Tuning of Probabilistic Self-Stabilizing Algorithms. Proc. of 36th IEEE Symposium on Reliable Distributed Systems (SRDS), pages 94–103, IEEE CS (Recipient of Best Paper Award), 2017.	
 		
 	\bibitem{Christian} Christian Dombrowski, Sebastian Junges, Joost-Pieter Katoen, James Gross. Model-Checking Assisted Protocol Design for Ultra-Reliable Low-Latency Wireless Networks. Proc. of the 35th Symp. on Reliable Distributed Systems (SRDS), pages 307–316, IEEE CS, 2016.
 	
