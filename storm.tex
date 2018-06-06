@@ -2,7 +2,7 @@
 %Gummi|065|=)
 
 \usepackage{latexsym,amssymb,amsmath,graphicx,epsfig,amsthm}
-\usepackage[top=1cm, bottom=1.5cm, left=1.7cm, right=1.5cm]{geometry}
+\usepackage[top=1.5cm, bottom=1.7cm, left=2cm, right=1.9cm]{geometry}
 \graphicspath{ {Documents/ing2famaf} }
 
 \title{\textbf{Storm, un verificador de modelos probabil\'istico moderno}}
@@ -157,21 +157,15 @@ Formalmente, una DTMC $D$ es una tupla $(S, s_0, P, L)$, donde $S$ es un conjunt
 
 y $L: S \rightarrow 2^{AP}$ etiqueta los estados con proposiciones at\'omicas.
 
-En la Figura 1 (a) se presenta un ejemplo de DTMC.
+En la Figura 1(a) se presenta un ejemplo de DTMC.
 
 \begin{figure}[h]
-	\includegraphics[scale=0.6]{DTMC.png} \includegraphics[scale=0.6]{MDP.png}
+	\includegraphics[scale=0.6]{DTMC.png} \includegraphics[scale=0.6]{MDP.png} \includegraphics[scale=0.6]{cone.png}
 	\centering
-	\caption{(a) DTMC \hspace{2cm} (b) MDP}
+	\caption{(a) DTMC \hspace{2cm} (b) MDP \hspace{2,1cm} (c) Cilindro $C(w)$}
 \end{figure}
 
-\begin{figure}[h]
-	\includegraphics[scale=0.6]{cone.png}
-	\centering
-	\caption{Cilindro $C(w)$}
-\end{figure}
-
-Un camino, finito o infinito, a trav\'es de una DTMC, es una secuencia de estados $s_0s_1s_2...$ tales que $P(s_i, s_{i+1}) > 0$ $\forall i$, que representa una ejecuci\'on o comportamiento posible del sistema que el DTMC est\'a modelando. Para sacar conclusiones cuantitativas sobre este sistema es necesario definir un espacio de probabilidad sobre estos caminos. Los eventos que componen el espacio muestral $Path(s)$ ser\'an los conjuntos de caminos infinitos desde el estado $s$.  Dado un camino finito desde $s$, $w = ss_1s_2...s_n$, se definen los eventos b\'asicos denominados conjunto de cilindros (o conos) $C(w)$ al conjunto de los caminos infinitos con el prefijo com\'un $w$, como se ilustra en la Figura 2. La medida de probabilidad $Pr_s$ sobre el espacio muestral $Path(s)$, se define de la siguiente manera: $Pr_s(C(ss_1s_2...s_n)) = P(s,s_1)P(s_1,s_2)...P(s_{n-1}, s_n)$. As\'i por ejemplo: $Pr_s(C(ss_1s_2)) = P(s,s_1)P(s_1,s_2)$. \\
+Un camino, finito o infinito, a trav\'es de una DTMC, es una secuencia de estados $s_0s_1s_2...$ tales que $P(s_i, s_{i+1}) > 0$ $\forall i$, que representa una ejecuci\'on o comportamiento posible del sistema que el DTMC est\'a modelando. Para sacar conclusiones cuantitativas sobre este sistema es necesario definir un espacio de probabilidad sobre estos caminos. Los eventos que componen el espacio muestral $Path(s)$ ser\'an los conjuntos de caminos infinitos desde el estado $s$.  Dado un camino finito desde $s$, $w = ss_1s_2...s_n$, se definen los eventos b\'asicos denominados conjunto de cilindros (o conos) $C(w)$ al conjunto de los caminos infinitos con el prefijo com\'un $w$, como se ilustra en la Figura 1(c). La medida de probabilidad $Pr_s$ sobre el espacio muestral $Path(s)$, se define de la siguiente manera: $Pr_s(C(ss_1s_2...s_n)) = P(s,s_1)P(s_1,s_2)...P(s_{n-1}, s_n)$. As\'i por ejemplo: $Pr_s(C(ss_1s_2)) = P(s,s_1)P(s_1,s_2)$. \\
 
 Pero, algunos aspectos de un sistema pueden no ser probabil\'isticos y por lo tanto no deben modelarse probabil\'isticamente; algunos casos posibles son:
 
@@ -184,7 +178,7 @@ Pero, algunos aspectos de un sistema pueden no ser probabil\'isticos y por lo ta
 	
 \end{itemize}
 
-Para ello se definen los \textbf{Procesos de Decisi\'on de Markov (MDPs).} Estos son una extensi\'on de las DTMCs que permiten una elecci\'on no determinista. El conjunto de estados ser\'a discreto, las transiciones entre estados pasos de tiempo discretos, cuya elecci\'on es no determinista entre varias distribuciones discretas de probabilidad sobre estados sucesivos. En la Figura 1 (b) puede observarse un ejemplo de MDP.
+Para ello se definen los \textbf{Procesos de Decisi\'on de Markov (MDPs).} Estos son una extensi\'on de las DTMCs que permiten una elecci\'on no determinista. El conjunto de estados ser\'a discreto, las transiciones entre estados pasos de tiempo discretos, cuya elecci\'on es no determinista entre varias distribuciones discretas de probabilidad sobre estados sucesivos. En la Figura 1(b) puede observarse un ejemplo de MDP.
 
 Formalmente un MDP $M$ es una tupla $(S, s_0, Steps, L)$, donde $S$, $s_0$ y $L$ est\'an definidas igual que para las DTMCs, y $Steps: S \rightarrow 2^{Act \times  Dist(S)}$ es la funci\'on de transici\'on probabil\'istica donde $Act$ es un conjunto de acciones y $Dist(S)$ es el conjunto de las distribuciones de probabilidad discretas sobre el conjunto de estados $S$.
 
@@ -226,7 +220,7 @@ El trabajo se dividi\'o en tres fases, primero se construyeron \'arboles din\'am
 
 Los \'arboles di\'namicos de fallas son estructuras que se crean a partir de \'arboles de fallas comunes. Un \'arbol de fallas se representa a trav\'es de un grafo ac\'iclico dirigido con nodos tipados. Los nodos son compuertas ('gates') y los nodos sin descendientes se llaman 'Eventos B\'asicos' ('BE'). Los \'arboles din\'amicos de fallas tienen mas funcionalidades, es decir mas tipos de compuertas, que permiten ser m\'as expresivos para definir el comportamiento del sistema cuando ocurre una falla.
 
-En la Figura 3 podemos observar el modelo en el que se bas\'o este caso de estudio. El comportamiento en caso de fallas de la arquitectura funcional, dado como 'functional block diagram' es expresado en un \'arbol din\'amico de fallas de dos capas. La capa superficial modela al sistema de fallas en t\'erminos de bloques de fallas $B_i$ mientras que la capa inferior modela las causas de las fallas de los bloques. Cada bloque funcional se le asigna una plataforma de Hardware donde un \'arbol din\'amico de fallas modela su comportamiento sobre las fallas.
+En la Figura 2 podemos observar el modelo en el que se bas\'o este caso de estudio. El comportamiento en caso de fallas de la arquitectura funcional, dado como 'functional block diagram' es expresado en un \'arbol din\'amico de fallas de dos capas. La capa superficial modela al sistema de fallas en t\'erminos de bloques de fallas $B_i$ mientras que la capa inferior modela las causas de las fallas de los bloques. Cada bloque funcional se le asigna una plataforma de Hardware donde un \'arbol din\'amico de fallas modela su comportamiento sobre las fallas.
 
 \begin{figure}[h]
 	\includegraphics[scale=0.43]{modelbased.png} 
@@ -240,7 +234,7 @@ En la Figura 3 podemos observar el modelo en el que se bas\'o este caso de estud
 	\caption{Diagramas de bloques de la direcci\'on del veh\'iculo}
 \end{figure}
 
-Hay cuatro enfoques para modelar los diagramas de bloques funcionales, como puede observarse en la Figura 4. Resumidamente, los diagramas funcionales cuentan con varios bloques, primero se encuetran los sensores $s_i$ (c\'amara del auto, sensores de proximidad, etc) que recolectan la informaci\'on y se la pasan al Interpretador, esa informaci\'on es procesada por un Planeador que define una trayectoria que ser\'a finalmente ejecutada por el Administrador de los actores $a_i$ (acelerador, freno, etc). No profundizaremos en las diferencias entre estas cuatro variantes, las mismas difieren \'unicamente en como se comportan al momento de que una falla ocurra. Lo m\'as relevante es que cada variante de los diagramas de bloques funcionales definen una propiedad de safety diferente, para ello tambi\'en se tuvo que implementar tres formas distintas para los modelos de las arquitecturas E/E (El\'ectrico y Electr\'onico) como se muestra en la Figura 5. Pero en general, estos modelos comparten el mismo funcinonamiento. Dados los sensores $s_i$ existe uno o varios sistemas avanzados de asistencia al conductor que obtienen esa informaci\'on y las unidades de control el\'ectrico la transfieren mediante un Bus de datos a los actores $a_i$. Estos modelos del sistema var\'ian seg\'un los modelos previos de los diagramas de bloques, \'osea seg\'un el comportamiento de los mismos a la hora de que ocurra una falla.
+Hay cuatro enfoques para modelar los diagramas de bloques funcionales, como puede observarse en la Figura 3. Resumidamente, los diagramas funcionales cuentan con varios bloques, primero se encuetran los sensores $s_i$ (c\'amara del auto, sensores de proximidad, etc) que recolectan la informaci\'on y se la pasan al Interpretador, esa informaci\'on es procesada por un Planeador que define una trayectoria que ser\'a finalmente ejecutada por el Administrador de los actores $a_i$ (acelerador, freno, etc). No profundizaremos en las diferencias entre estas cuatro variantes, las mismas difieren \'unicamente en como se comportan al momento de que una falla ocurra. Lo m\'as relevante es que cada variante de los diagramas de bloques funcionales definen una propiedad de safety diferente, para ello tambi\'en se tuvo que implementar tres formas distintas para los modelos de las arquitecturas E/E (El\'ectrico y Electr\'onico) como se muestra en la Figura 4. Pero en general, estos modelos comparten el mismo funcinonamiento. Dados los sensores $s_i$ existe uno o varios sistemas avanzados de asistencia al conductor que obtienen esa informaci\'on y las unidades de control el\'ectrico la transfieren mediante un Bus de datos a los actores $a_i$. Estos modelos del sistema var\'ian seg\'un los modelos previos de los diagramas de bloques, \'osea seg\'un el comportamiento de los mismos a la hora de que ocurra una falla.
 
 \begin{figure}[h]
 	\includegraphics[scale=0.4]{EE.png}
@@ -248,7 +242,7 @@ Hay cuatro enfoques para modelar los diagramas de bloques funcionales, como pued
 	\caption{Diferentes modelos de arquitecturas E/E}
 \end{figure}
 
-Resulta bastante sencillo evaluar este caso de estudio en Storm, un esquema de este proceso se presenta en la Figura 6, simplemente se reescriben los \'arboles de fallas como \'arboles din\'amicos de fallas utilizando la t\'ecnica descripta en \cite{Tree} y luego Storm traduce estos \'arboles en Automatas deterministas parametrizados de Markov que por \'ultimo son reducidos a cadenas de tiempo continuo de Markov. Luego solo queda evaluar estas cadenas de Markov con las propiedades que ofrece la herramienta (alcanzabilidad, alcanzabilidad en un tiempo limite sin haber pasado por un estado malo, y tiempo esperado para alcanzar un estado dado). Como resultado se obtuvieron las probabilidades de falla de los modelos, su integridad bajo operaciones fallidas limitadas, fallas a lo largo del tiempo y el \'analisis sensitivo. %(?)
+Resulta bastante sencillo evaluar este caso de estudio en Storm, un esquema de este proceso se presenta en la Figura 5, simplemente se reescriben los \'arboles de fallas como \'arboles din\'amicos de fallas utilizando la t\'ecnica descripta en \cite{Tree} y luego Storm traduce estos \'arboles en Automatas deterministas parametrizados de Markov que por \'ultimo son reducidos a cadenas de tiempo continuo de Markov. Luego solo queda evaluar estas cadenas de Markov con las propiedades que ofrece la herramienta (alcanzabilidad, alcanzabilidad en un tiempo limite sin haber pasado por un estado malo, y tiempo esperado para alcanzar un estado dado). Como resultado se obtuvieron las probabilidades de falla de los modelos, su integridad bajo operaciones fallidas limitadas, fallas a lo largo del tiempo y el \'analisis sensitivo. %(?)
 
 %cita Junges, S., Guck, D., Katoen, J.P., Rensink, A., Stoelinga, M.: Fault trees on a diet: automated reduction by graph rewriting. Formal Asp. Comput. 29(4), 651–703 (2017)
 
@@ -300,9 +294,7 @@ En conclusi\'on se pud\'o demostrar que es posible y conveniente usar \'arboles 
 
 \section{Comparaci\'on con otras herramientas.}
 
-Otros model checkers probabil\'isticos son PRISM (utiliza DTMCs, MDPs, CTMCs), ETMCC/MRMC (utiliza DTMCs, CTMCs), LiQuor (verificaci\'on LTL para MDPs), RAPTURE (prototipo para la abstracci\'on / refinamiento de MDPs). Model checkers probabil\'isticos basados en simulaci\'on: APMC, Ymer, VESTA; de comprobaci\'on de CSL para CTMCs: APNN-Toolbox, SMART; para m\'ultiples formalismos: CADP, M\"{o}bius.
-
-Nos interesa comparar STORM con alguna herramienta estudiada por los dem\'as grupos, por ejemplo PRISM y ModelToolset.  
+Otros model checkers probabil\'isticos son PRISM (utiliza DTMCs, MDPs, CTMCs), ETMCC/MRMC (utiliza DTMCs, CTMCs), LiQuor (verificaci\'on LTL para MDPs), RAPTURE (prototipo para la abstracci\'on / refinamiento de MDPs). Model checkers probabil\'isticos basados en simulaci\'on: APMC, Ymer, VESTA; de comprobaci\'on de CSL para CTMCs: APNN-Toolbox, SMART; para m\'ultiples formalismos: CADP, M\"{o}bius. Nos interesa comparar STORM con alguna herramienta estudiada por los dem\'as grupos, por ejemplo PRISM y ModelToolset.  
 
 \begin{figure}[h]
 	\includegraphics[scale=0.28]{comparacion.png} 
@@ -312,7 +304,7 @@ Nos interesa comparar STORM con alguna herramienta estudiada por los dem\'as gru
 
 \end{figure}
 
-En la Figura 7 se puede observar los diferentes motores que usa cada herramienta, las funcionalidades que soportan est\'an marcadas con un tilde, con '*' se indic\'o las que a\'un no pero la implementaci\'on esta en proceso, los n\'umeros (1,2,3,4) indican si la herramienta usa otras herramientas espec\'ificas para soportar esas funcionalidades.
+En la Figura 6 se puede observar los diferentes motores que usa cada herramienta, las funcionalidades que soportan est\'an marcadas con un tilde, con '*' se indic\'o las que a\'un no pero la implementaci\'on esta en proceso, los n\'umeros (1,2,3,4) indican si la herramienta usa otras herramientas espec\'ificas para soportar esas funcionalidades.
 
 \section{Conclusiones.}
 
